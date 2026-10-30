@@ -7,7 +7,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -81,7 +82,7 @@ public class HarvestUtil {
                     Block checkedBlock = checkedState.getBlock();
                     if (checkedBlock instanceof CropBlock || checkedBlock instanceof SweetBerryBushBlock || checkedBlock instanceof CocoaBlock) {
                         if (HarvestUtil.harvest(player, level, checkedPos, checkedState)) {
-                            stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(event.getHand()));
+                            stack.hurtAndBreak(1, player, event.getHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
                             success.set(true);
                             return BlockPos.TraversalNodeStatus.ACCEPT;
                         }
